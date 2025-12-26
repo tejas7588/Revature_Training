@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobiles List</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+        background: #222;
+        color: white;
+        padding: 15px;
+        margin: 0;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        text-align: center;
+    }
+
+    .card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .card h3 {
+        margin: 10px 0;
+    }
+
+    .price {
+        color: green;
+        font-weight: bold;
+        margin: 5px 0;
+    }
+
+    .config {
+        font-size: 14px;
+        color: #555;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Mobile Phones</h1>
+
+<div class="container">
+
+    <div class="card">
+        <img src="https://tse4.mm.bing.net/th/id/OIP.h33c_EzCtAy-WAFFQFxtCQHaEK?pid=Api&P=0&h=180">
+        <h3>Samsung Galaxy S23 Ultra</h3>
+        <p class="price">₹74,999</p>
+        <p class="config">8GB RAM | 128GB Storage | 50MP Camera</p>
+    </div>
+
+    <div class="card">
+        <img src="https://media.wired.com/photos/6332360740fe1e8870aa3bc0/master/w_2560%2Cc_limit/iPhone-14-Review-Gear.jpg">
+        <h3>Apple iPhone 14</h3>
+        <p class="price">₹69,999</p>
+        <p class="config">6GB RAM | 128GB Storage | A15 Chip</p>
+    </div>
+
+    <div class="card">
+        <img src="https://static1.anpoimages.com/wordpress/wp-content/uploads/2023/02/oneplus-11-review-9.jpg">
+        <h3>OnePlus 11</h3>
+        <p class="price">₹56,999</p>
+        <p class="config">16GB RAM | 256GB Storage | Snapdragon 8 Gen 2</p>
+    </div>
+
+    <div class="card">
+        <img src="https://unbox.ph/wp-content/uploads/2023/04/Unbox-Redmi-Note-12-4G-1.jpg">
+        <h3>Redmi Note 12</h3>
+        <p class="price">₹14,999</p>
+        <p class="config">6GB RAM | 128GB Storage | 48MP Camera</p>
+    </div>
+
+</div>
+
+</body>
+</html>

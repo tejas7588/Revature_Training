@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tejas Hinde | Portfolio</title>
+    <script>
+
+        localStorage.setItem("name", "Tejas");
+        alert(localStorage.getItem('name'));
+        sessionStorage.setItem("username", "tejas7588");
+        alert(sessionStorage.getItem('username'));
+        
+        
+function getLocation() {
+    navigator.geolocation.getCurrentPosition((pos) => 
+       alert(pos.coords.latitude));
+}
+    </script>
+</head>
+<body>
+<button onclick="getLocation()">Get Location</button>
+<!-- Header -->
+
+<h1>Tejas Hinde</h1>
+<p>Computer Engineering Graduate | Java Full Stack Developer</p>
+
+
+<hr>
+
+<!-- About Section -->
+<h2>About Me</h2>
+<p>
+I am a motivated Computer Engineering graduate with skills in Java, Spring Boot,
+SQL, and Full Stack Development. I enjoy building backend systems and web applications.
+</p>
+
+<hr>
+
+<!-- Skills Section -->
+<h2>Skills</h2>
+<ul>
+    <li>Java</li>
+    <li>Spring Boot</li>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+    <li>MySQL</li>
+</ul>
+
+<hr>
+
+<!-- Projects Section -->
+<h2>Projects</h2>
+
+<h3>Banking Application</h3>
+<p>
+Developed a secure banking backend using Java and Spring Boot with features
+like account creation, fund transfer, and transaction history.
+</p>
+
+<h3>Smart Placement Portal</h3>
+<p>
+Built a placement portal using Spring Boot and REST APIs with role-based access.
+</p>
+
+<hr>
+
+<!-- Education Section -->
+<h2>Education</h2>
+<p>
+Bachelor of Engineering (Computer Science) – 2024
+</p>
+
+<hr>
+
+<!-- Contact Section -->
+<h2>Contact</h2>
+<p>Email: tejashinde9021@gmail.com</p>
+<p>Phone: 7410551330</p>
+<p>LinkedIn: linkedin.com/in/tejas-hinde</p>
+
+<hr>
+
+<!-- Footer -->
+<p>© 2025 Tejas Hinde</p>
+
+</body>
+</html>

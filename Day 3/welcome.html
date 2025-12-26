@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Details</title>
+</head>
+<body>
+
+<!-- Video -->
+<video width="400" controls>
+    <source src="company.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<!-- Canvas -->
+<h2>Canvas Circle</h2>
+<canvas id="myCanvas" width="300" height="150" style="border:1px solid black;">
+</canvas>
+
+<!-- Employee Table -->
+<h2>Employee Details</h2>
+
+<table border="1">
+    <tr>
+        <th>Employee ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Designation</th>
+        <th>Salary</th>
+    </tr>
+
+    <tr>
+        <td>101</td>
+        <td>Tejas</td>
+        <td>IT</td>
+        <td>Software Engineer</td>
+        <td>80000</td>
+    </tr>
+
+    <tr>
+        <td>102</td>
+        <td>Ananya</td>
+        <td>HR</td>
+        <td>HR Manager</td>
+        <td>65000</td>
+    </tr>
+
+    <tr>
+        <td>103</td>
+        <td>Rahul</td>
+        <td>Finance</td>
+        <td>Accountant</td>
+        <td>70000</td>
+    </tr>
+</table>
+
+<!-- Canvas Script -->
+<script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+
+    ctx.beginPath();
+    ctx.arc(150, 75, 50, 0, 2 * Math.PI);
+    ctx.stroke();
+</script>
+
+</body>
+</html>
