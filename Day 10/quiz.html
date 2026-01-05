@@ -2,210 +2,248 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Tech Quiz Portal</title>
+    <title>Pro Tech Quiz with Review System</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        :root {
-            --primary: #2563eb;
-            --success: #059669;
-            --danger: #dc2626;
-            --bg: #f8fafc;
-            --card: #ffffff;
-        }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #1e293b; margin: 0; display: flex; justify-content: center; min-height: 100vh; }
+        :root { --primary:#2563eb; --success:#16a34a; --danger:#dc2626; --bg:#f8fafc; --card:#ffffff; }
+        body{ font-family: 'Inter', sans-serif; background:var(--bg); margin:0; display:flex; justify-content:center; padding: 20px; }
         
-        #main-wrapper { width: 90%; max-width: 900px; margin-top: 40px; display: grid; grid-template-columns: 1fr 250px; gap: 20px; }
-        
-        #quiz-container { background: var(--card); padding: 30px; border-radius: 12px; shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        #main-wrapper{ width:90%; max-width:900px; display:grid; grid-template-columns: 1fr 250px; gap:20px; }
+        #quiz-container{ background:var(--card); padding:30px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
 
         /* Timer & Progress */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        #timer { font-size: 1.5rem; font-weight: 700; color: var(--danger); font-variant-numeric: tabular-nums; }
-        .progress-container { height: 8px; background: #e2e8f0; border-radius: 10px; margin-bottom: 30px; }
-        #progress-bar { height: 100%; width: 0%; background: var(--primary); border-radius: 10px; transition: 0.4s; }
+        .header{ display:flex; justify-content:space-between; align-items: center; margin-bottom: 10px; }
+        #timer{ font-size:1.4rem; font-weight:700; color:var(--danger); }
+        .progress-container{ height:8px; background:#e2e8f0; border-radius:10px; margin-bottom: 30px; }
+        #progress-bar{ height:100%; width:0%; background:var(--primary); border-radius:10px; transition: 0.3s; }
 
-        /* Question Palette (Sidebar) */
-        .sidebar { background: var(--card); padding: 20px; border-radius: 12px; height: fit-content; }
-        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 15px; }
-        .dot { width: 35px; height: 35px; border: 1px solid #cbd5e1; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; }
-        .dot.answered { background: var(--success); color: white; border-color: var(--success); }
-        .dot.current { border: 2px solid var(--primary); font-weight: bold; }
-
-        /* Question Styles */
-        .question-step { display: none; }
-        .active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Question UI */
+        .question-step{ display:none; }
+        .question-step.active{ display:block; }
+        .q-text{ font-size:1.2rem; font-weight:600; margin-bottom:20px; }
         
-        .q-text { font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; color: #0f172a; }
-        .opt-label { 
-            display: block; padding: 15px; margin-bottom: 12px; border: 2px solid #e2e8f0; 
-            border-radius: 8px; cursor: pointer; transition: all 0.2s; 
-        }
-        .opt-label:hover { border-color: var(--primary); background: #eff6ff; }
-        .opt-label.selected { background: #dbeafe; border-color: var(--primary); color: var(--primary); font-weight: 600; }
+        .opt-label{ display:block; padding:15px; margin-bottom:10px; border:2px solid #e2e8f0; border-radius:8px; cursor:pointer; transition: 0.2s; }
+        .opt-label.selected{ background:#dbeafe; border-color:var(--primary); }
+        
+        /* Review Colors */
+        .opt-label.correct { background: #dcfce7 !important; border-color: #16a34a !important; color: #16a34a; font-weight: bold; }
+        .opt-label.wrong { background: #fee2e2 !important; border-color: #dc2626 !important; color: #dc2626; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.9rem; font-weight: bold; margin-top: 10px; }
 
-        /* Footer Buttons */
-        .footer-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
-        .btn { padding: 10px 24px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .btn-gray { background: #64748b; color: white; }
-        .btn-blue { background: var(--primary); color: white; }
-        .btn-green { background: var(--success); color: white; }
-        .btn:disabled { opacity: 0.4; }
+        /* Sidebar Palette */
+        .sidebar{ background:white; padding:20px; border-radius:12px; height: fit-content; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
+        .palette-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:15px; }
+        .dot{ width:35px; height:35px; border:1px solid #cbd5e1; border-radius:6px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+        .dot.answered{ background:var(--success); color:white; border:none; }
+        .dot.current{ border:2px solid var(--primary); font-weight: bold; }
 
-        #result-screen { display: none; text-align: center; background: white; padding: 50px; border-radius: 12px; width: 100%; }
+        /* Buttons */
+        .footer-nav{ display:flex; justify-content:space-between; margin-top:30px; border-top:1px solid #e2e8f0; padding-top:20px; }
+        .btn{ padding:10px 20px; border-radius:6px; border:none; font-weight:600; cursor:pointer; }
+        .btn-blue{ background:var(--primary); color:white; }
+        .btn-green{ background:var(--success); color:white; }
+        .btn-gray{ background:#64748b; color:white; }
 
-        @media (max-width: 768px) { #main-wrapper { grid-template-columns: 1fr; } .sidebar { order: -1; } }
+        #result-screen { display:none; text-align:center; padding:20px; border-bottom: 2px solid #e2e8f0; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <div id="main-wrapper">
-    <div id="quiz-container">
-        <div class="header">
-            <span style="font-weight: 600; color: #64748b;">Technical Assessment</span>
-            <div id="timer">10:00</div>
-        </div>
-        
-        <div class="progress-container">
-            <div id="progress-bar"></div>
+    <div>
+        <div id="result-screen">
+            <h1 style="color:var(--primary); margin:0;">Quiz Finished!</h1>
+            <div id="final-score" style="font-size:3rem; font-weight:800;"></div>
+            <p id="score-text"></p>
+            <button class="btn btn-blue" onclick="location.reload()">Restart Quiz</button>
         </div>
 
-        <div id="dynamic-questions">
+        <div id="quiz-container">
+            <div class="header">
+                <span id="quiz-mode-title">Technical Quiz</span>
+                <div id="timer">10:00</div>
             </div>
-
-        <div class="footer-nav">
-            <button id="prev-btn" class="btn btn-gray">Previous</button>
-            <div>
-                <button id="next-btn" class="btn btn-blue">Next Question</button>
-                <button id="submit-btn" class="btn btn-green" style="display:none">Final Submit</button>
+            <div class="progress-container"><div id="progress-bar"></div></div>
+            <div id="dynamic-questions"></div>
+            <div class="footer-nav">
+                <button id="prev-btn" class="btn btn-gray">Previous</button>
+                <button id="next-btn" class="btn btn-blue">Next</button>
+                <button id="submit-btn" class="btn btn-green" style="display:none">Submit Quiz</button>
             </div>
         </div>
     </div>
 
     <aside class="sidebar">
-        <h4 style="margin:0">Question Palette</h4>
-        <div class="palette-grid" id="palette">
-            </div>
-        <p style="font-size: 0.8rem; color: #64748b; margin-top: 20px;">Green: Answered<br>Outline: Current</p>
+        <h4 style="margin:0">Questions</h4>
+        <div class="palette-grid" id="palette"></div>
     </aside>
 </div>
 
-<div id="result-screen">
-    <h1 style="color: var(--primary)">Assessment Complete</h1>
-    <p>Your technical proficiency score is:</p>
-    <div style="font-size: 4rem; font-weight: 800; margin: 20px 0;" id="final-score">0</div>
-    <div id="score-comment"></div>
-    <button class="btn btn-blue" style="margin-top: 30px;" onclick="location.reload()">Retake Quiz</button>
-</div>
-
 <script>
-$(document).ready(function() {
+$(function(){
     const techQuestions = [
-        { q: "Which of the following is NOT a JavaScript data type?", opts: ["Undefined", "Boolean", "Float", "Number"], ans: 2 },
-        { q: "What is the purpose of 'use strict' in JavaScript?", opts: ["Enforces stricter parsing", "Speeds up execution", "Enables new features", "Minifies code"], ans: 0 },
-        { q: "Which CSS property is used to create a flexbox container?", opts: ["display: flex", "content: flex", "box-type: flex", "align: flex"], ans: 0 },
-        { q: "In jQuery, which symbol is used to access the library?", opts: ["&", "%", "$", "#"], ans: 2 },
-        { q: "What does DOM stand for?", opts: ["Data Object Model", "Document Object Model", "Dynamic Output Mode", "Desktop Object Management"], ans: 1 },
-        { q: "Which HTTP method is typically used to update data on a server?", opts: ["GET", "POST", "PUT", "DELETE"], ans: 2 },
-        { q: "How do you select an element with id 'demo' in CSS?", opts: [".demo", "#demo", "*demo", "demo"], ans: 1 },
-        { q: "Which company developed React.js?", opts: ["Google", "Amazon", "Facebook/Meta", "Microsoft"], ans: 2 },
-        { q: "What is the default value of the 'position' property in CSS?", opts: ["Relative", "Absolute", "Fixed", "Static"], ans: 3 },
-        { q: "Which array method adds an element to the end of an array?", opts: ["pop()", "shift()", "push()", "unshift()"], ans: 2 }
+        { q: "Which symbol is used for comments in Javascript?", opts: ["//", "/*", "#", "--"], ans: 0 },
+        { q: "What does API stand for?", opts: ["App Program Info", "Application Programming Interface", "Auto Process Integration", "Applied Protocol Index"], ans: 1 },
+        { q: "Which tag is used to link a JavaScript file?", opts: ["<link>", "<js>", "<script>", "<src>"], ans: 2 },
+        { q: "Which CSS property controls text size?", opts: ["font-style", "text-size", "font-size", "text-style"], ans: 2 },
+        { q: "What is the result of 2 + '2' in JS?", opts: ["4", "22", "NaN", "Error"], ans: 1 },
+        { q: "Which company created the Go language?", opts: ["Meta", "Microsoft", "Apple", "Google"], ans: 3 },
+        { q: "Which is a NoSQL Database?", opts: ["MySQL", "PostgreSQL", "MongoDB", "Oracle"], ans: 2 },
+        { q: "What does 'S' stand for in SQL?", opts: ["Simple", "System", "Structured", "Source"], ans: 2 },
+        { q: "Which HTML attribute is used for inline styles?", opts: ["class", "style", "font", "styles"], ans: 1 },
+        { q: "In CSS, 'a:hover' is a...", opts: ["Pseudo-class", "ID selector", "Tag", "Variable"], ans: 0 }
     ];
 
-    let currentIdx = 0;
-    let userChoices = new Array(techQuestions.length).fill(null);
+    let current = 0;
+    let answers = new Array(techQuestions.length).fill(null);
     let timeLeft = 600;
+    let isReviewMode = false;
+    let timerInterval;
 
-    function buildQuiz() {
-        techQuestions.forEach((item, i) => {
-            // Build Question Step
-            let optionsHtml = item.opts.map((opt, oIdx) => 
-                `<label class="opt-label" data-q="${i}" data-o="${oIdx}">${opt}</label>`
-            ).join('');
+    /* REPLACE YOUR EXISTING INIT FUNCTION WITH THIS ONE */
+/* Updated Init Function with HTML Escaping */
+function init() {
+    // Helper function to safely render < > and & symbols
+    const escapeHTML = (str) => {
+        return str.replace(/[&<>"']/g, m => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        })[m]);
+    };
 
-            $('#dynamic-questions').append(`
-                <div class="question-step" id="step-${i}">
-                    <div class="q-text">Q${i+1}: ${item.q}</div>
-                    <div class="options-list">${optionsHtml}</div>
-                </div>
-            `);
+    techQuestions.forEach((q, i) => {
+        // We escape both the Question and the Options
+        let optsHtml = q.opts.map((o, j) => 
+            `<label class="opt-label" data-q="${i}" data-o="${j}">
+                <span style="font-weight:bold; margin-right:8px;">${String.fromCharCode(65 + j)}.</span> ${escapeHTML(o)}
+            </label>`
+        ).join('');
 
-            // Build Palette Dot
-            $('#palette').append(`<div class="dot" id="dot-${i}" data-goto="${i}">${i+1}</div>`);
-        });
-        updateDisplay();
-        startTimer();
+        $('#dynamic-questions').append(`
+            <div class="question-step" id="step-${i}">
+                <div class="q-text">Q${i+1}: ${escapeHTML(q.q)}</div>
+                <div class="options-box">${optsHtml}</div>
+                <div class="review-feedback"></div>
+            </div>
+        `);
+        $('#palette').append(`<div class="dot" data-i="${i}">${i+1}</div>`);
+    });
+
+    updateUI();
+    startTimer();
+}
+
+/* ENHANCED REVIEW LOGIC (Shows the correct answer explicitly) */
+function applyReviewLogic() {
+    const q = techQuestions[current];
+    const userAns = answers[current];
+    const correctAns = q.ans;
+    const container = $(`#step-${current}`);
+
+    container.find('.opt-label').addClass('disabled').css('cursor', 'default');
+    container.find(`[data-o=${correctAns}]`).addClass('correct');
+    
+    if(userAns !== null && userAns !== correctAns) {
+        container.find(`[data-o=${userAns}]`).addClass('wrong');
     }
 
-    function updateDisplay() {
-        $('.question-step').removeClass('active');
-        $(`#step-${currentIdx}`).addClass('active');
-        
-        $('.dot').removeClass('current');
-        $(`#dot-${currentIdx}`).addClass('current');
+    let feedback = "";
+    if(userAns === null) {
+        feedback = `<div class="status-badge" style="background:#fef3c7; color:#92400e;">⚠ Skipped</div>
+                    <p style="color:#64748b; font-size:0.9rem;">Correct Answer was: <b>${q.opts[correctAns]}</b></p>`;
+    } else if(userAns === correctAns) {
+        feedback = `<div class="status-badge" style="background:#dcfce7; color:#16a34a;">✔ Correct!</div>`;
+    } else {
+        feedback = `<div class="status-badge" style="background:#fee2e2; color:#dc2626;">✖ Incorrect</div>
+                    <p style="color:#64748b; font-size:0.9rem;">The correct answer is: <b>${q.opts[correctAns]}</b></p>`;
+    }
+    
+    container.find('.review-feedback').html(feedback);
+}
 
-        $('#prev-btn').prop('disabled', currentIdx === 0);
-        
-        if (currentIdx === techQuestions.length - 1) {
-            $('#next-btn').hide();
-            $('#submit-btn').show();
+    function updateUI() {
+        $('.question-step').removeClass('active');
+        $(`#step-${current}`).addClass('active');
+        $('.dot').removeClass('current');
+        $(`.dot[data-i=${current}]`).addClass('current');
+
+        if(isReviewMode) {
+            applyReviewLogic();
         } else {
-            $('#next-btn').show();
-            $('#submit-btn').hide();
+            $(`#step-${current} .opt-label`).removeClass('selected');
+            if(answers[current] !== null) $(`#step-${current} [data-o=${answers[current]}]`).addClass('selected');
         }
 
-        let progress = ((currentIdx + 1) / techQuestions.length) * 100;
-        $('#progress-bar').css('width', progress + '%');
+        $('#prev-btn').prop('disabled', current === 0);
+        if(current === techQuestions.length - 1) { $('#next-btn').hide(); $('#submit-btn').toggle(!isReviewMode); }
+        else { $('#next-btn').show(); $('#submit-btn').hide(); }
+        
+        $('#progress-bar').css('width', ((current + 1) / techQuestions.length) * 100 + '%');
     }
 
-    // Selection Logic
-    $(document).on('click', '.opt-label', function() {
-        let q = $(this).data('q');
-        let o = $(this).data('o');
-        userChoices[q] = o;
+    function applyReviewLogic() {
+        const q = techQuestions[current];
+        const userAns = answers[current];
+        const correctAns = q.ans;
+        const container = $(`#step-${current}`);
 
-        $(`#step-${q} .opt-label`).removeClass('selected');
-        $(this).addClass('selected');
-        $(`#dot-${q}`).addClass('answered');
+        container.find('.opt-label').removeClass('selected').addClass('disabled');
+        container.find(`[data-o=${correctAns}]`).addClass('correct');
+        
+        if(userAns !== null && userAns !== correctAns) {
+            container.find(`[data-o=${userAns}]`).addClass('wrong');
+        }
+
+        let feedback = "";
+        if(userAns === null) feedback = `<span class="status-badge" style="background:#fef3c7; color:#92400e;">⚠ Skipped</span>`;
+        else if(userAns === correctAns) feedback = `<span class="status-badge" style="background:#dcfce7; color:#16a34a;">✔ Correct Answer</span>`;
+        else feedback = `<span class="status-badge" style="background:#fee2e2; color:#dc2626;">✖ Incorrect</span>`;
+        
+        container.find('.review-feedback').html(feedback);
+
+    }
+
+    $(document).on('click', '.opt-label', function(){
+        if(isReviewMode) return;
+
+        let qIdx = $(this).data('q');
+        answers[qIdx] = $(this).data('o');
+        $(`.dot[data-i=${qIdx}]`).addClass('answered');
+        updateUI();
     });
 
-    // Sidebar Navigation
-    $(document).on('click', '.dot', function() {
-        currentIdx = $(this).data('goto');
-        updateDisplay();
-    });
-
-    $('#next-btn').click(() => { currentIdx++; updateDisplay(); });
-    $('#prev-btn').click(() => { currentIdx--; updateDisplay(); });
+    $('#next-btn').click(() => { current++; updateUI(); });
+    $('#prev-btn').click(() => { current--; updateUI(); });
+    $(document).on('click', '.dot', function(){ current = $(this).data('i'); updateUI(); });
 
     function startTimer() {
-        const timerObj = setInterval(() => {
-            let min = Math.floor(timeLeft / 60);
-            let sec = timeLeft % 60;
-            $('#timer').text(`${min}:${sec < 10 ? '0' : ''}${sec}`);
-            if (timeLeft <= 0) { clearInterval(timerObj); calculateScore(); }
+        timerInterval = setInterval(() => {
+            if(timeLeft <= 0) { clearInterval(timerInterval); submit(); }
+            let m = Math.floor(timeLeft/60), s = timeLeft%60;
+            $('#timer').text(`${m}:${s<10?'0':''}${s}`);
             timeLeft--;
         }, 1000);
     }
 
-    function calculateScore() {
+    function submit() {
+        clearInterval(timerInterval);
+        isReviewMode = true;
         let score = 0;
-        userChoices.forEach((choice, i) => {
-            if(choice === techQuestions[i].ans) score++;
-        });
+        answers.forEach((a, i) => { if(a === techQuestions[i].ans) score++; });
 
-        $('#main-wrapper').hide();
+        $('#timer').text("Review Mode").css('color', '#64748b');
+        $('#quiz-mode-title').text("Results Summary");
+        $('#submit-btn').hide();
         $('#result-screen').fadeIn();
         $('#final-score').text(`${score} / ${techQuestions.length}`);
+        $('#score-text').text(score > 6 ? "Great Job! You have a strong technical foundation." : "Good effort! Review your mistakes to improve.");
         
-        let msg = score > 7 ? "Excellent Technical Knowledge!" : "Keep Practicing!";
-        $('#score-comment').text(msg);
+        current = 0;
+        updateUI();
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    $('#submit-btn').click(calculateScore);
-    buildQuiz();
+    $('#submit-btn').click(submit);
+    init();
 });
 </script>
 </body>
