@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callback Example</title>
+</head>
+<body>
+    <script>
+        function fetchSomeData(callback) {
+            setTimeout(() => {
+                callback("data is loading");
+            }, 1000);
+        }
+
+        fetchSomeData(i => console.log(i));
+    </script>
+</body>
+</html>

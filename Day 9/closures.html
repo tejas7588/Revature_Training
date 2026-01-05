@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function outer(){
+    let ctr=0;
+    console.log("inside outer", ctr);
+    function inner(){
+        ctr++;
+        console.log("inside inner",ctr);
+        function innermost(){
+            ctr++;
+            console.log("inside innermost",ctr);
+        }
+return innermost;
+    }
+    return inner;
+}
+const valueofcounter = outer();
+const innerFn = valueofcounter(); // calls inner()
+innerFn(); // calls innermost()
+
+    </script>
+</body>
+</html>

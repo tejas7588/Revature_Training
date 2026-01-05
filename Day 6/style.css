@@ -1,0 +1,93 @@
+/* 1. Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 2. Mobile-First Styles (Default) */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-links {
+    display: none; /* Hide links on mobile for simplicity, or use a hamburger menu */
+}
+
+.hero {
+    text-align: center;
+    padding: 4rem 10%;
+    background-color: #e0f2f1;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    background-color: #26a69a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.features {
+    padding: 2rem 5%;
+    display: grid;
+    grid-template-columns: 1fr; /* Stacked vertically on mobile */
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* 3. Desktop Styles (Breakpoint) */
+@media (min-width: 768px) {
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 20px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+
+    .features {
+        grid-template-columns: repeat(3, 1fr); /* 3 Columns on desktop */
+    }
+}

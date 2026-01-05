@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+ console.log("started");
+ setTimeout(()=>{
+    console.log("....time out....");
+
+ },0);
+ Promise.resolve().then(()=>{
+    console.log("promise inside");
+ });
+ console.log("ended");
+ console.log("nested promise");
+ Promise.resolve().then(()=>{
+    console.log("inside promise 1");
+    Promise.resolve().then(()=>{
+        console.log("promise 2");
+    });
+ });
+ console.log("settimeout inside promise");
+ Promise.resolve().then(()=>{
+    console.log("inside promise 1");
+Promise.resolve().then(()=>{
+    console.log("in promise 2");
+});
+ });
+
+    </script>
+  
+
+</body>
+</html>

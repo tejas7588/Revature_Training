@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise example with reject</title>
+</head>
+<body>
+    <script>
+        function transfer(amt){
+return new Promise((resolve,reject)=>{
+    console.log("Transfer payment...");
+setTimeout(()=>{
+    const balanceamt=3000;
+    if(balanceamt>=amt){
+        resolve("payment transfer success "+ amt);
+    }
+    else{
+        reject("insufficient balance");
+    }
+},1000);
+
+});
+        }
+transfer(3000)
+.then(result =>{
+    console.log(result);
+})
+.catch(error=>{
+    console.log(error);
+});
+
+    </script>
+</body>
+</html>

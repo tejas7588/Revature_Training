@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Manipulation Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 8px;
+      margin-right: 5px;
+    }
+    li {
+      margin: 6px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Dynamic List (DOM Manipulation)</h2>
+
+  <input type="text" id="itemInput" placeholder="Enter item">
+  <button id="addBtn">Add Item</button>
+
+  <ul id="itemList"></ul>
+
+  <script>
+    // Select elements
+    const input = document.getElementById("itemInput");
+    const button = document.getElementById("addBtn");
+    const list = document.querySelector("#itemList");
+
+    // Add event listener
+    button.addEventListener("click", () => {
+      const value = input.value.trim();
+
+      if (value === "") {
+        alert("Please enter a value");
+        return;
+      }
+
+      // Create new li element
+      const li = document.createElement("li");
+      li.textContent = value;
+
+      // Append to ul
+      list.appendChild(li);
+
+      // Clear input
+      input.value = "";
+    });
+  </script>
+
+</body>
+</html>

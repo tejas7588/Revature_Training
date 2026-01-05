@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQuery Multi-Category List</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    h2 { margin-top: 40px; }
+    ul { list-style-type: none; padding: 0; }
+    li { padding: 8px; margin: 5px 0; background: #f0f0f0; cursor: pointer; display: flex; justify-content: space-between; }
+    li:hover { background: #d0f0d0; }
+    button { margin-left: 5px; }
+    input, select { padding: 5px; margin-right: 5px; }
+  </style>
+</head>
+<body>
+
+  <h1>Dynamic Multi-Category List</h1>
+
+  <!-- Add new item -->
+  <input type="text" id="itemInput" placeholder="Enter item">
+  <select id="categorySelect">
+    <option value="fruits">Fruits</option>
+    <option value="cities">Cities</option>
+    <option value="groceries">Groceries</option>
+  </select>
+  <button id="addBtn">Add Item</button>
+
+  <!-- Lists -->
+  <h2>Fruits</h2>
+  <ul id="fruitsList"></ul>
+
+  <h2>Cities</h2>
+  <ul id="citiesList"></ul>
+
+  <h2>Groceries</h2>
+  <ul id="groceriesList"></ul>
+
+  <script>
+    $(document).ready(function() {
+
+      // Helper function to create list item with buttons
+      function createListItem(text) {
+        return `<li>
+                  <span class="item-text">${text}</span>
+                  <span>
+                    <button class="editBtn">Edit</button>
+                    <button class="removeBtn">Remove</button>
+                  </span>
+                </li>`;
+      }
+
+      // 1️⃣ Add new item
+      $("#addBtn").click(function() {
+        const item = $("#itemInput").val().trim();
+        const category = $("#categorySelect").val();
+        if (item !== "") {
+          if (category === "fruits") $("#fruitsList").append(createListItem(item));
+          if (category === "cities") $("#citiesList").append(createListItem(item));
+          if (category === "groceries") $("#groceriesList").append(createListItem(item));
+          $("#itemInput").val(""); // Clear input
+        }
+      });
+
+      // 2️⃣ Remove item
+      $("ul").on("click", ".removeBtn", function() {
+        $(this).closest("li").remove();
+      });
+
+      // 3️⃣ Edit/Update item
+      $("ul").on("click", ".editBtn", function() {
+        const li = $(this).closest("li");
+        const oldText = li.find(".item-text").text();
+        const newText = prompt("Update item:", oldText);
+        if (newText !== null && newText.trim() !== "") {
+          li.find(".item-text").text(newText.trim());
+        }
+      });
+
+      // Optional: Highlight on click
+      $("ul").on("click", "li", function() {
+        $(this).toggleClass("highlight");
+      });
+
+    });
+  </script>
+
+</body>
+</html>

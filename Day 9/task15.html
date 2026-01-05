@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Credentials Validation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+        form {
+            width: 320px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+        }
+        button {
+            padding: 8px 15px;
+            width: 100%;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .success {
+            color: green;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>User Registration Form</h2>
+
+<form id="myForm">
+    <input type="text" id="username" placeholder="Enter username">
+    <input type="email" id="email" placeholder="Enter email">
+    <input type="password" id="password" placeholder="Enter password">
+    <input type="password" id="confirmPassword" placeholder="Confirm password">
+
+    <div id="error" class="error"></div>
+    <div id="success" class="success"></div>
+
+    <br>
+    <button type="submit">Register</button>
+</form>
+
+<script>
+    const form = document.getElementById("myForm");
+    const username = document.getElementById("username");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const error = document.getElementById("error");
+    const success = document.getElementById("success");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        error.textContent = "";
+        success.textContent = "";
+
+        if (username.value.trim() === "") {
+            error.textContent = "Username is required";
+        } 
+        else if (email.value.trim() === "") {
+            error.textContent = "Email is required";
+        } 
+        else if (password.value.trim() === "") {
+            error.textContent = "Password is required";
+        } 
+        else if (password.value.length < 6) {
+            error.textContent = "Password must be at least 6 characters";
+        }
+        else if (confirmPassword.value.trim() === "") {
+            error.textContent = "Confirm your password";
+        }
+        else if (password.value !== confirmPassword.value) {
+            error.textContent = "Passwords do not match";
+        } 
+        else {
+            success.textContent = "Registration successful!";
+            form.reset();
+        }
+    });
+</script>
+
+</body>
+</html>

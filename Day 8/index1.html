@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reduce Function Example</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 40px;
+    }
+
+    .container {
+      background: #ffffff;
+      width: 350px;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    .output {
+      margin-top: 15px;
+      font-size: 15px;
+    }
+
+    .output p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Array Reduce()</h2>
+
+    <input 
+      type="text" 
+      id="arrayInput" 
+      placeholder="Enter numbers (e.g. 5,8,2,9,10)"
+    >
+
+    <button onclick="calculate()">Run Reduce</button>
+
+    <div class="output">
+      <p>Sum: <strong id="sum"></strong></p>
+      <p>Max Value: <strong id="max"></strong></p>
+    </div>
+  </div>
+
+  <script>
+    function calculate() {
+      const input = document.getElementById("arrayInput").value;
+
+      // Convert string to number array
+      const arr = input.split(",").map(Number);
+
+      // Reduce functions
+      const sum = arr.reduce((total, num) => total + num, 0);
+      const max = arr.reduce((x, y) => x > y ? x : y);
+
+      // Display results
+      document.getElementById("sum").innerText = sum;
+      document.getElementById("max").innerText = max;
+    }
+  </script>
+
+</body>
+</html>

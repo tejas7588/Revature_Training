@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Indian Product Store</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f4f4f4;
+}
+
+/* Sticky Navbar */
+.navbar{
+    position:sticky;
+    top:0;
+    background:#1e1e1e;
+    color:white;
+    padding:15px 30px;
+    font-size:22px;
+    z-index:100;
+}
+
+/* Grid Layout */
+.page{
+    max-width:1200px;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:240px 1fr;
+    gap:20px;
+}
+
+/* Sidebar */
+.sidebar{
+    background:white;
+    padding:15px;
+    border-radius:6px;
+}
+.sidebar h3{
+    margin-bottom:12px;
+}
+.sidebar p{
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+/* Products - Flexbox */
+.products{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+/* Product Card */
+.card{
+    background:white;
+    width:230px;
+    border-radius:6px;
+    padding:15px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+.card img{
+    width:100%;
+    height:140px;
+    object-fit:cover;
+    border-radius:4px;
+}
+.card h4{
+    margin:10px 0 5px;
+}
+.card p{
+    font-size:14px;
+    color:#555;
+}
+.price{
+    font-weight:bold;
+    font-size:16px;
+    margin:8px 0;
+    color:#2e7d32;
+}
+.card button{
+    padding:8px;
+    border:none;
+    background:#0d6efd;
+    color:white;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+/* Fixed Cart */
+.cart{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#ff5722;
+    color:white;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    cursor:pointer;
+}
+.navbar{
+    position: sticky;
+    top: 0;
+    background: #1e1e1e;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.wishlist{
+    cursor: pointer;
+    font-size: 18px;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<div class="navbar">
+    <div class="logo">🛒 Online Store</div>
+    <div class="wishlist">❤️ Wishlist</div>
+</div>
+
+
+<!-- Page Grid -->
+<div class="page">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Categories</h3>
+        <p>📱 Mobiles</p>
+        <p>💻 Laptops</p>
+        <p>🎧 Headphones</p>
+        <p>⌚ SmartWatches</p>
+    </div>
+
+    <!-- Products -->
+    <div class="products">
+
+        <div class="card">
+            <img src="https://www.01net.com/app/uploads/2024/01/Samsung-Galaxy-S24-Ultra-1.jpg">
+            <h4>Samsung Galaxy S24 Ultra</h4>
+            <p>5G Smartphone | 6000mAh</p>
+            <div class="price">₹1,18,499</div>
+            <button>Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="https://9to5mac.com/wp-content/uploads/sites/6/2025/02/iphone-17pro-concept.jpg">
+            <h4>Apple iPhone 17</h4>
+            <p>128GB | A15 Bionic</p>
+            <div class="price">₹1,52,999</div>
+            <button>Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="https://laptopmedia.com/wp-content/uploads/2019/11/1-62-e1588931885978.jpg">
+            <h4>HP Pavilion Laptop</h4>
+            <p>Intel i5 | 16GB RAM</p>
+            <div class="price">₹64,990</div>
+            <button>Add to Cart</button>
+        </div>
+
+         <div class="card">
+            <img src="https://macfinder.co.uk/wp-content/uploads/2022/12/img-MacBook-Pro-Retina-15-Inch-48284.jpg">
+            <h4>Macbook</h4>
+            <p>6GB RAM | 128GB Storage</p>
+            <div class="price">₹1,21,999</div>
+            <button>Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="https://assets.myntassets.com/h_200,w_200,c_fill,g_auto/h_1440,q_100,w_1080/v1/assets/images/15865484/2021/12/23/b7720e62-d496-4276-b009-8b2c4e0d43c71640260328829-boAt-Rockerz-450-M-Marvel-Edition-Wireless-Headphones-Soldie-1.jpg">
+            <h4>boAt Rockerz 450</h4>
+            <p>Wireless Bluetooth Headphones</p>
+            <div class="price">₹1,499</div>
+            <button>Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="https://techpp.com/wp-content/uploads/2022/07/noise-color-fit-pro-4-max-review-5.jpg">
+            <h4>Noise ColorFit Pro 4</h4>
+            <p>Smart Watch | AMOLED</p>
+            <div class="price">₹3,999</div>
+            <button>Add to Cart</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Cart Icon -->
+<div class="cart">🛍</div>
+
+</body>
+</html>

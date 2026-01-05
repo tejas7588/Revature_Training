@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Callback Hell vs Promise vs Async Await</title>
+</head>
+<body>
+
+<h2>Open Console to See Output</h2>
+
+<script>
+/* -----------------------------
+   COMMON FUNCTIONS
+------------------------------*/
+
+// CALLBACK STYLE
+function validateUserCB(callback) {
+    setTimeout(() => {
+        console.log("CB: User validated");
+        callback(true);
+    }, 1000);
+}
+
+function processPaymentCB(callback) {
+    setTimeout(() => {
+        console.log("CB: Payment processed");
+        callback(true);
+    }, 1000);
+}
+
+function generateInvoiceCB(callback) {
+    setTimeout(() => {
+        console.log("CB: Invoice generated");
+        callback("INV-CB-101");
+    }, 1000);
+}
+
+// PROMISE STYLE
+function validateUserP() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            console.log("Promise: User validated");
+            resolve();
+        }, 1000);
+    });
+}
+
+function processPaymentP() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            console.log("Promise: Payment processed");
+            resolve();
+        }, 1000);
+    });
+}
+
+function generateInvoiceP() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            console.log("Promise: Invoice generated");
+            resolve("INV-P-202");
+        }, 1000);
+    });
+}
+
+/* -----------------------------
+   1️⃣ CALLBACK HELL
+------------------------------*/
+
+console.log("----- CALLBACK HELL START -----");
+
+validateUserCB(function (isValid) {
+    if (isValid) {
+        processPaymentCB(function (isPaid) {
+            if (isPaid) {
+                generateInvoiceCB(function (invoice) {
+                    console.log("CB Invoice:", invoice);
+                    console.log("----- CALLBACK HELL END -----\n");
+                });
+            }
+        });
+    }
+});
+
+/* -----------------------------
+   2️⃣ PROMISE CHAIN
+------------------------------*/
+
+setTimeout(() => {
+    console.log("----- PROMISE START -----");
+
+    validateUserP()
+        .then(processPaymentP)
+        .then(generateInvoiceP)
+        .then(invoice => {
+            console.log("Promise Invoice:", invoice);
+            console.log("----- PROMISE END -----\n");
+        })
+        .catch(err => console.log("Promise Error", err));
+
+}, 4000);
+
+/* -----------------------------
+   3️⃣ ASYNC / AWAIT
+------------------------------*/
+
+async function paymentFlowAsync() {
+    console.log("----- ASYNC/AWAIT START -----");
+
+    try {
+        await validateUserP();
+        await processPaymentP();
+        const invoice = await generateInvoiceP();
+        console.log("Async Invoice:", invoice);
+    } catch (e) {
+        console.log("Async Error");
+    }
+
+    console.log("----- ASYNC/AWAIT END -----");
+}
+
+setTimeout(paymentFlowAsync, 8000);
+
+</script>
+
+</body>
+</html>

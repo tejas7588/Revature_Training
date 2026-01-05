@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inline, Internal and External CSS styling to Table</title>
+<   <link rel="stylesheet" href="external.css">
+
+    <!-- INTERNAL CSS -->
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin-top: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        th {
+            background-color: #3f51b5;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2 style="color: darkgreen; text-align: center;">
+    Student Details (Inline + Internal + External CSS)
+</h2>
+
+<table border="1" style="margin-left:auto; margin-right:auto;">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td style="color: blue; font-weight: bold;">Tejas</td>
+        <td>22</td>
+    </tr>
+
+    <tr>
+        <td>2</td>
+        <td style="color: red;">Amit</td>
+        <td>24</td>
+    </tr>
+
+    <tr>
+        <td>3</td>
+        <td style="background-color: yellow;">Rahul</td>
+        <td>21</td>
+    </tr>
+</table>
+
+<p style="text-align:center; margin-top:20px; font-style: italic;">
+    *Inline CSS is used for heading, table alignment, and specific cells
+</p>
+
+</body>
+</html>

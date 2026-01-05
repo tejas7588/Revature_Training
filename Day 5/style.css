@@ -1,0 +1,102 @@
+body {
+    background-color: #fcfcfc;
+    font-family: "Times New Roman", Times, serif;
+    color: #1a1a1a;
+    margin: 40px;
+    line-height: 1.5;
+}
+
+.newspaper-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Masthead */
+.masthead {
+    text-align: center;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    margin-bottom: 30px;
+}
+
+.masthead h1 {
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: normal;
+    margin: 20px 0;
+}
+
+/* Layout */
+.main-content {
+    display: flex;
+    gap: 30px;
+}
+
+.lead-story {
+    flex: 3;
+}
+
+.secondary-stories {
+    flex: 2;
+    padding: 0 20px;
+    border-left: 1px solid #eee;
+}
+
+/* Cards */
+.card {
+    margin-bottom: 30px;
+}
+
+.card h2 {
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+.card h3 {
+    font-size: 1.3rem;
+    font-weight: normal;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.card img {
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* Headline Image Layout */
+.headline {
+    display: flex;
+    gap: 15px;
+}
+
+.headline h2 {
+    flex: 2;
+}
+
+.headline img {
+    flex: 1;
+    max-width: 200px;
+    border: 1px solid #ddd;
+}
+
+/* Text */
+p {
+    text-align: justify;
+    margin-bottom: 15px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .main-content {
+        flex-direction: column;
+    }
+    .secondary-stories {
+        border-left: none;
+        padding: 0;
+    }
+    .headline {
+        flex-direction: column;
+    }
+}

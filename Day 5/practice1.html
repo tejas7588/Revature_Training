@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Food Store</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), 
+                        url('https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=1400&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-top: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 2.5rem;
+            border-bottom: 2px solid #ff0000;
+            padding-bottom: 10px;
+        }
+
+        .container {
+            display: flex;
+            gap: 2rem;
+            padding: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            position: relative;
+            background-color: #ffffff; 
+            width: 260px;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+            text-align: center;
+            color: #2d3436;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Wishlist Heart Icon */
+        .wishlist-icon {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            font-size: 1.4rem;
+            color: #d1d1d1;
+            cursor: pointer;
+            transition: 0.3s;
+            background: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .wishlist-icon:hover {
+            color: #ff4757;
+            transform: scale(1.15);
+        }
+
+        /* The Sale Badge */
+        .card::after {
+            content: "10% OFF";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #ff0000;
+            color: white;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 6px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .card h3 {
+            margin: 15px 0 5px 0;
+            font-size: 1.5rem;
+            color: #2d3436;
+        }
+
+        /* Price Styling in INR */
+        .price {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e272e;
+            margin-bottom: 15px;
+        }
+
+        .price span {
+            text-decoration: line-through;
+            color: #a4b0be;
+            font-size: 0.95rem;
+            margin-right: 10px;
+            font-weight: 400;
+        }
+
+        .buy-btn {
+            background-color: #2ecc71; /* Brighter Indian Green */
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px 0;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .buy-btn:hover {
+            background-color: #27ae60;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Desi Food Corner</h1>
+
+    <div class="container">
+        <div class="card">
+            <div class="wishlist-icon">❤</div>
+            <img src="http://www.rachnas-kitchen.com/wp-content/uploads/2016/02/image-4.jpeg" alt="Rasmalai">
+            <h3>Rasmalai</h3>
+            <div class="price"><span>₹350</span> ₹315</div>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <div class="wishlist-icon">❤</div>
+            <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=400&q=80" alt="Bakarwadi">
+            <h3>Samosa</h3>
+            <div class="price"><span>₹200</span> ₹180</div>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <div class="wishlist-icon">❤</div>
+            <img src="https://theartisticcook.com/wp-content/uploads/2024/10/Gulab-Jamun-with-Milk-Powder.jpg" alt="Gulab Jamun">
+            <h3>Gulab Jamun</h3>
+            <div class="price"><span>₹250</span> ₹225</div>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <div class="wishlist-icon">❤</div>
+            <img src="https://www.rkusa.com/wp-content/uploads/2024/05/ai-generated-8601143_1280-1.jpg" alt="Panipuri">
+            <h3>Panipuri</h3>
+            <div class="price"><span>₹100</span> ₹90</div>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GST Calculator</title>
+</head>
+<body>
+
+  <h2>GST Calculator (18%)</h2>
+
+  <input type="number" id="price" placeholder="Enter price">
+  <button onclick="calculate()">Calculate GST</button>
+
+  <p id="result"></p>
+
+  <script>
+    // Arrow function
+    const calculateGST = price => price * 0.18;
+
+    function calculate() {
+      const price = Number(document.getElementById("price").value);
+
+      if (price <= 0) {
+        document.getElementById("result").innerText = "Please enter a valid amount";
+        return;
+      }
+
+      const gst = calculateGST(price);
+      const total = price + gst;
+
+      document.getElementById("result").innerText =
+        `GST: ₹${gst.toFixed(2)} | Total Amount: ₹${total.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
